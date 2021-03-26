@@ -3,7 +3,6 @@ package com.rodao.osrodao.domain.service;
 import java.time.OffsetDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -23,7 +22,7 @@ public class GestaoOrdemService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	public ResponseEntity<OrdemServico> criar(@RequestBody OrdemServico ordemServico) {
+	public OrdemServico criar(@RequestBody OrdemServico ordemServico) {
 		Cliente cliente = clienteRepository.findById(ordemServico.getCliente().getId()).orElseThrow(
 				() -> new NegocioException("Cliente não encontrado"));
 
@@ -31,7 +30,7 @@ public class GestaoOrdemService {
 		ordemServico.setStatus(StatusOrdemServicoEnum.ABERTA);
 		ordemServico.setDataAbertura(OffsetDateTime.now());
 		ordemServicoRepository.save(ordemServico);
-		return ResponseEntity.ok().body(ordemServico);
+		return ordemServico;
 	}
 
 }

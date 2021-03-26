@@ -1,4 +1,4 @@
-package com.rodao.osrodao.controller;
+package com.rodao.osrodao.api.controller;
 
 import java.util.List;
 import java.util.Optional;

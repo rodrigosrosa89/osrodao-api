@@ -8,7 +8,7 @@ import com.rodao.osrodao.domain.model.StatusOrdemServicoEnum;
 public class OrdemServicoDto {
 
 	private Long id;
-	private String nomeCliente;
+	private ClienteDto cliente;
 	private String descricao;
 	private BigDecimal preco;
 	private StatusOrdemServicoEnum status;
@@ -23,12 +23,12 @@ public class OrdemServicoDto {
 		this.id = id;
 	}
 
-	public String getNomeCliente() {
-		return nomeCliente;
+	public ClienteDto getCliente() {
+		return cliente;
 	}
 
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
+	public void setCliente(ClienteDto cliente) {
+		this.cliente = cliente;
 	}
 
 	public String getDescricao() {

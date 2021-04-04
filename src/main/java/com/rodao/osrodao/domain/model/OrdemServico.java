@@ -22,6 +22,7 @@ import javax.validation.groups.Default;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.rodao.osrodao.domain.ValidationGroups;
+import com.rodao.osrodao.domain.exception.NegocioException;
 
 @Entity
 public class OrdemServico {
@@ -175,6 +176,20 @@ public class OrdemServico {
 		if (status != other.status)
 			return false;
 		return true;
+	}
+
+	public boolean podeSerFinalizada() {
+		return StatusOrdemServicoEnum.ABERTA.equals(getStatus());
+	}
+	public void finalizar() {
+		if (!podeSerFinalizada()) {
+			throw new NegocioException("Ordem de serviço não pode ser finalizada");
+		}
+		
+		setStatus(StatusOrdemServicoEnum.FINALIZADA);
+		setDataFinalizacao(OffsetDateTime.now());
+
+		
 	}
 
 }

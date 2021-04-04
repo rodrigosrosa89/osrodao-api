@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -22,14 +23,14 @@ import com.rodao.osrodao.api.dto.OrdemServicoDto;
 import com.rodao.osrodao.api.request.OrdemServicoRequest;
 import com.rodao.osrodao.domain.model.OrdemServico;
 import com.rodao.osrodao.domain.repository.OrdemServicoRepository;
-import com.rodao.osrodao.domain.service.GestaoOrdemService;
+import com.rodao.osrodao.domain.service.GestaoOrdemServicoService;
 
 @RestController
 @RequestMapping("ordens-servico")
 public class OrdemServicoController {
 	
 	@Autowired
-	private GestaoOrdemService gestaoOrdemService;
+	private GestaoOrdemServicoService gestaoOrdemService;
 	
 	@Autowired
 	private OrdemServicoRepository ordemServicoRepository;
@@ -58,6 +59,12 @@ public class OrdemServicoController {
 		}
 		OrdemServicoDto dto = mapToDto(ordem.get());
 		return ResponseEntity.ok(dto);
+	}
+	
+	@PutMapping("/{ordemServicoId}/finalizacao")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void finalizar(@PathVariable Long ordemServicoId) {
+		gestaoOrdemService.finalizarOrdemServico(ordemServicoId);
 	}
 	
 	private OrdemServicoDto mapToDto(OrdemServico ordemServico) {
